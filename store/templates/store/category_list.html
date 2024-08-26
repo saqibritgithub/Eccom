@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}Category List{% endblock %}
+
+{% block content %}
+    <h1>Categories</h1>
+    <div class="category-container">
+        {% for category in categories %}
+            <div class="category-item">
+                <a href="{% url 'category_detail' category.id %}">
+                    
+                    <h3>{{ category.name }}</h3>
+                </a>
+            </div>
+        {% empty %}
+            <div class="category-item">
+                <p>No categories available.</p>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="back-link" href="{% url 'home' %}">Back to Home</a>
+{% endblock %}

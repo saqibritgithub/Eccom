@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <h1>{{ product.name }}</h1>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <p>{{ product.description }}</p>
+    <h2>Price: Rs{{ product.price }}</h2>
+
+    <h2>Order</h2>
+    <form method="post" action="{% url 'product_detail' product.id %}">
+        {% csrf_token %}
+        {{ order_form.as_p }}
+        <button type="submit" name="order_submit">Place Order</button>
+    </form>
+
+    <!-- Add to Cart Section -->
+    <h2>Add to Cart</h2>
+    <form method="post" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <button type="submit">Add to Cart</button>
+    </form>
+
+    <div class="reviews">
+        <h2>Reviews</h2>
+        <ul>
+            {% for review in reviews %}
+                <li>{{ review.user }}: {{ review.comment }}</li>
+            {% empty %}
+                <li>No reviews yet.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Add a Review</h3>
+        <form method="post" action="{% url 'product_detail' product.id %}">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit" name="review_submit">Submit Review</button>
+        </form>
+    </div>
+    <a href="{% url 'home' %}">Back to Home</a>
+</div>
+{% for review in reviews %}
+    <div>
+        <p>{{ review.user.username }}: {{ review.comment }} - {{ review.rating }}</p>
+        {% if review.user == request.user %}
+            <a href="{% url 'review_edit' review.id %}">Edit</a>
+            <a href="{% url 'review_delete' review.id %}">Delete</a>
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% endblock %}

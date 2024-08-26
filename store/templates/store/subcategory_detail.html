@@ -1,0 +1,42 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+    <style>
+        .product-list {
+            display: flex; /* Arrange items horizontally */
+            gap: 70px; /* Space between products */
+            justify-content: flex-start; /* Align items to the left */
+        }
+
+        .product-item {
+            width: 150px; /* Set a fixed width for each product */
+            text-align: center; /* Center-align text and images */
+        }
+
+        .product-item img {
+            max-width: 100%; /* Ensure image fits within the container */
+            height: 100%;
+            border-radius: 5px; /* Optional: Add rounded corners to images */
+        }
+
+        .product-item p {
+            margin: 10px 0 0 0; /* Adjust spacing around the product name */
+            font-size: 14px;
+            font-weight: bold;
+            color: #333; /* Text color */
+        }
+    </style>
+
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-item">
+                <a href="{% url 'product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

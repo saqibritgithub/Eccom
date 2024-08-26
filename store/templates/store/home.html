@@ -1,0 +1,52 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<h2>Categories</h2>
+<div class="Home_Categories">
+    <style>
+        /* Style for the Categories container */
+        .Home_Categories {
+            padding: 20px;
+            background-color: #f9f9f9; /* Light background color */
+            border: 1px solid #ddd; /* Light gray border */
+            border-radius: 8px; /* Rounded corners */
+        }
+
+        /* Style for the list of categories */
+        .Home_Categories ul {
+            list-style: none; /* Remove default list styling */
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Style for each category item */
+        .Home_Categories li {
+            margin: 10px 0; /* Spacing between items */
+        }
+
+        /* Same style for all category links */
+        .Home_Categories a {
+            text-decoration: none; /* Remove underline */
+            background-color: white; /* White background */
+            color: light blue; /* Blue text */
+            font-weight: bold; /* Make text bold */
+            font-size: 16px; /* Adjust font size */
+            transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+            padding: 10px;
+            display: block;
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        /* Hover effect for all category links */
+        .Home_Categories a:hover {
+            color: white; /* White text on hover */
+            background-color: blue; /* Blue background on hover */
+        }
+    </style>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
